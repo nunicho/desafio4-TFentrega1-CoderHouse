@@ -31,31 +31,18 @@ function saveProducts(carts) {
 }
 
 
-//------------------------------------------------------------------------ PETICION GET
-
-router.get("/", (req, res) => {
-  let carritos = getCarts();
-
-  const limit = parseInt(req.query.limit) || carritos.length;
-  const limitedData = carritos.slice(0, limit);
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json({ data: limitedData });
-});
-
-
-
-
 //------------------------------------------------------------------------ PETICION GET con /:ID
 
-router.get("/:cid/product/:pid", (req, res) => {
+router.get("/:cid", (req, res) => {
   let carritos = getCarts();
 
-  let cid = req.params.id;
-  cid = parseInt(pid);
-  if (isNaN(pid)) {
+  let cid = req.params.cid; 
+  cid = parseInt(cid);
+
+  if (isNaN(cid)) {
     res.json({
       status: "error",
-      mensaje: "Require un argumento id de tipo numerico",
+      mensaje: "Requiere un argumento 'cid' de tipo numérico",
     });
     return;
   }
@@ -67,7 +54,7 @@ router.get("/:cid/product/:pid", (req, res) => {
   } else {
     res
       .status(404)
-      .json({ status: "error", mensaje: `El id ${pid} no existe` });
+      .json({ status: "error", mensaje: `El id ${cid} no existe` }); 
   }
 });
 
