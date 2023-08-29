@@ -72,6 +72,7 @@ router.post("/", async (req, res) => {
   if (title && description && price && thumbnail && code && stock) {
     const nuevoProducto = {
       id: productos.length > 0 ? productos[productos.length - 1].id + 1 : 1,
+      status: true, //por defecto se debe seleccionar TRUE. 
       title,
       description,
       price,
